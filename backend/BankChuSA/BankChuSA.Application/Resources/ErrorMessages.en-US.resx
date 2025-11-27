@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="JwtKeyNotConfigured" xml:space="preserve">
+    <value>JWT Key not configured</value>
+  </data>
+  <data name="TransferOnlyOnWorkingDays" xml:space="preserve">
+    <value>Transfers can only be made on business days</value>
+  </data>
+  <data name="SourceAccountNotFound" xml:space="preserve">
+    <value>Source account not found</value>
+  </data>
+  <data name="DestinationAccountNotFound" xml:space="preserve">
+    <value>Destination account not found</value>
+  </data>
+  <data name="InsufficientBalance" xml:space="preserve">
+    <value>Insufficient balance to complete the transfer</value>
+  </data>
+  <data name="AccountNotFound" xml:space="preserve">
+    <value>Account not found</value>
+  </data>
+  <data name="MigrationError" xml:space="preserve">
+    <value>Error executing migrations</value>
+  </data>
+  <data name="FromAccountRequired" xml:space="preserve">
+    <value>Source account is required</value>
+  </data>
+  <data name="ToAccountRequired" xml:space="preserve">
+    <value>Destination account is required</value>
+  </data>
+  <data name="AccountsCannotBeEqual" xml:space="preserve">
+    <value>Source and destination accounts cannot be the same</value>
+  </data>
+  <data name="TransferAmountMustBeGreaterThanZero" xml:space="preserve">
+    <value>Transfer amount must be greater than zero</value>
+  </data>
+  <data name="DescriptionMaxLength" xml:space="preserve">
+    <value>Description cannot exceed 500 characters</value>
+  </data>
+  <data name="OwnerNameRequired" xml:space="preserve">
+    <value>Owner name is required</value>
+  </data>
+  <data name="OwnerNameMaxLength" xml:space="preserve">
+    <value>Owner name cannot exceed 200 characters</value>
+  </data>
+  <data name="DocumentNumberRequired" xml:space="preserve">
+    <value>CPF/CNPJ is required</value>
+  </data>
+  <data name="DocumentNumberLength" xml:space="preserve">
+    <value>CPF/CNPJ must have 11 or 14 characters</value>
+  </data>
+  <data name="InitialBalanceCannotBeNegative" xml:space="preserve">
+    <value>Initial balance cannot be negative</value>
+  </data>
+</root>
+

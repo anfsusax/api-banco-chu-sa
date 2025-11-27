@@ -1,0 +1,99 @@
+<div class="accounts-container">
+  <div class="header">
+    <h1>Gerenciar Contas</h1>
+    <div class="actions">
+      <button class="btn btn-secondary" (click)="navigateToTransfers()">Transferências</button>
+      <button class="btn btn-secondary" (click)="navigateToStatements()">Extratos</button>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="card">
+      <h2>Criar Nova Conta</h2>
+      
+      <form [formGroup]="accountForm" (ngSubmit)="onCreateAccount()">
+        <div class="form-group">
+          <label for="ownerName">Nome do Titular</label>
+          <input
+            id="ownerName"
+            type="text"
+            formControlName="ownerName"
+            placeholder="Digite o nome do titular"
+          />
+          @if (accountForm.get('ownerName')?.invalid && accountForm.get('ownerName')?.touched) {
+            <span class="error-message">{{ getFieldError('ownerName') }}</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="documentNumber">CPF/CNPJ</label>
+          <input
+            id="documentNumber"
+            type="text"
+            formControlName="documentNumber"
+            placeholder="Digite o CPF ou CNPJ"
+          />
+          @if (accountForm.get('documentNumber')?.invalid && accountForm.get('documentNumber')?.touched) {
+            <span class="error-message">{{ getFieldError('documentNumber') }}</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="initialBalance">Saldo Inicial</label>
+          <input
+            id="initialBalance"
+            type="number"
+            step="0.01"
+            formControlName="initialBalance"
+            placeholder="0.00"
+          />
+        </div>
+
+        <button type="submit" [disabled]="accountForm.invalid || isLoading" class="btn btn-primary">
+          @if (isLoading) {
+            Criando...
+          } @else {
+            Criar Conta
+          }
+        </button>
+      </form>
+
+      @if (errorMessage) {
+        <div class="alert alert-error">{{ errorMessage }}</div>
+      }
+
+      @if (successMessage) {
+        <div class="alert alert-success">{{ successMessage }}</div>
+      }
+    </div>
+
+    <div class="card">
+      <h2>Buscar Conta</h2>
+      <div class="search-box">
+        <input
+          type="text"
+          #searchInput
+          placeholder="Digite o número da conta"
+          (keyup.enter)="onSearchAccount(searchInput.value)"
+        />
+        <button class="btn btn-primary" (click)="onSearchAccount(searchInput.value)">Buscar</button>
+      </div>
+
+      @if (accounts.length > 0) {
+        <div class="account-list">
+          @for (account of accounts; track account.id) {
+            <div class="account-item">
+              <div class="account-info">
+                <strong>Número:</strong> {{ account.accountNumber }}<br>
+                <strong>Titular:</strong> {{ account.ownerName }}<br>
+                <strong>Documento:</strong> {{ account.documentNumber }}<br>
+                <strong>Saldo:</strong> R$ {{ account.balance.toFixed(2) }}
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</div>
+

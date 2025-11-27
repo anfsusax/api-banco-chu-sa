@@ -1,0 +1,86 @@
+<div class="transfers-container">
+  <div class="header">
+    <h1>Realizar Transferência</h1>
+    <div class="actions">
+      <button class="btn btn-secondary" (click)="navigateToAccounts()">Contas</button>
+      <button class="btn btn-secondary" (click)="navigateToStatements()">Extratos</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <form [formGroup]="transferForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="fromAccountNumber">Conta de Origem</label>
+        <input
+          id="fromAccountNumber"
+          type="text"
+          formControlName="fromAccountNumber"
+          placeholder="Digite o número da conta de origem"
+        />
+        @if (transferForm.get('fromAccountNumber')?.invalid && transferForm.get('fromAccountNumber')?.touched) {
+          <span class="error-message">{{ getFieldError('fromAccountNumber') }}</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="toAccountNumber">Conta de Destino</label>
+        <input
+          id="toAccountNumber"
+          type="text"
+          formControlName="toAccountNumber"
+          placeholder="Digite o número da conta de destino"
+        />
+        @if (transferForm.get('toAccountNumber')?.invalid && transferForm.get('toAccountNumber')?.touched) {
+          <span class="error-message">{{ getFieldError('toAccountNumber') }}</span>
+        }
+        @if (getFormError() && transferForm.get('toAccountNumber')?.touched) {
+          <span class="error-message">{{ getFormError() }}</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="amount">Valor</label>
+        <input
+          id="amount"
+          type="number"
+          step="0.01"
+          formControlName="amount"
+          placeholder="0.00"
+        />
+        @if (transferForm.get('amount')?.invalid && transferForm.get('amount')?.touched) {
+          <span class="error-message">{{ getFieldError('amount') }}</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="description">Descrição</label>
+        <textarea
+          id="description"
+          formControlName="description"
+          placeholder="Digite uma descrição para a transferência"
+          rows="3"
+        ></textarea>
+        @if (transferForm.get('description')?.invalid && transferForm.get('description')?.touched) {
+          <span class="error-message">{{ getFieldError('description') }}</span>
+        }
+      </div>
+
+      <button type="submit" [disabled]="transferForm.invalid || isLoading" class="btn btn-primary">
+        @if (isLoading) {
+          Processando...
+        } @else {
+          Realizar Transferência
+        }
+      </button>
+    </form>
+
+    @if (errorMessage) {
+      <div class="alert alert-error">{{ errorMessage }}</div>
+    }
+
+    @if (successMessage) {
+      <div class="alert alert-success">{{ successMessage }}</div>
+    }
+  </div>
+</div>
+

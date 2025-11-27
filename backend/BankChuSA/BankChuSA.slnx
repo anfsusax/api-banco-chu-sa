@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="BanckChuSA.API/BanckChuSA.API.csproj" />
+  <Project Path="BankChuSA.Application/BankChuSA.Application.csproj" />
+  <Project Path="BankChuSA.Domain/BankChuSA.Domain.csproj" />
+  <Project Path="BankChuSA.Infrastructure/BankChuSA.Infrastructure.csproj" />
+  <Project Path="BankChuSA.Tests/BankChuSA.Tests.csproj" />
+</Solution>

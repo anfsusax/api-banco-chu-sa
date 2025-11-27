@@ -1,0 +1,123 @@
+<div class="statements-container">
+  <div class="header">
+    <h1>Extrato por Período</h1>
+    <div class="actions">
+      <button class="btn btn-secondary" (click)="navigateToAccounts()">Contas</button>
+      <button class="btn btn-secondary" (click)="navigateToTransfers()">Transferências</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <form [formGroup]="statementForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="accountNumber">Número da Conta</label>
+        <input
+          id="accountNumber"
+          type="text"
+          formControlName="accountNumber"
+          placeholder="Digite o número da conta"
+        />
+        @if (statementForm.get('accountNumber')?.invalid && statementForm.get('accountNumber')?.touched) {
+          <span class="error-message">{{ getFieldError('accountNumber') }}</span>
+        }
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="startDate">Data Inicial</label>
+          <input
+            id="startDate"
+            type="date"
+            formControlName="startDate"
+          />
+          @if (statementForm.get('startDate')?.invalid && statementForm.get('startDate')?.touched) {
+            <span class="error-message">{{ getFieldError('startDate') }}</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="endDate">Data Final</label>
+          <input
+            id="endDate"
+            type="date"
+            formControlName="endDate"
+          />
+          @if (statementForm.get('endDate')?.invalid && statementForm.get('endDate')?.touched) {
+            <span class="error-message">{{ getFieldError('endDate') }}</span>
+          }
+        </div>
+      </div>
+
+      @if (getFormError()) {
+        <div class="alert alert-error">{{ getFormError() }}</div>
+      }
+
+      <button type="submit" [disabled]="statementForm.invalid || isLoading" class="btn btn-primary">
+        @if (isLoading) {
+          Buscando...
+        } @else {
+          Buscar Extrato
+        }
+      </button>
+    </form>
+
+    @if (errorMessage) {
+      <div class="alert alert-error">{{ errorMessage }}</div>
+    }
+  </div>
+
+  @if (statement) {
+    <div class="statement-card">
+      <h2>Extrato da Conta {{ statement.accountNumber }}</h2>
+      
+      <div class="statement-summary">
+        <div class="summary-item">
+          <span class="label">Período:</span>
+          <span class="value">{{ statement.startDate | date:'dd/MM/yyyy' }} a {{ statement.endDate | date:'dd/MM/yyyy' }}</span>
+        </div>
+        <div class="summary-item">
+          <span class="label">Saldo Inicial:</span>
+          <span class="value">R$ {{ statement.initialBalance.toFixed(2) }}</span>
+        </div>
+        <div class="summary-item">
+          <span class="label">Saldo Final:</span>
+          <span class="value">R$ {{ statement.finalBalance.toFixed(2) }}</span>
+        </div>
+      </div>
+
+      <div class="transactions-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Tipo</th>
+              <th>Valor</th>
+              <th>Descrição</th>
+              <th>Conta Relacionada</th>
+            </tr>
+          </thead>
+          <tbody>
+            @if (statement.transactions.length === 0) {
+              <tr>
+                <td colspan="5" class="no-data">Nenhuma transação no período</td>
+              </tr>
+            } @else {
+              @for (transaction of statement.transactions; track transaction.transactionDate) {
+                <tr>
+                  <td>{{ transaction.transactionDate | date:'dd/MM/yyyy HH:mm' }}</td>
+                  <td>{{ transaction.type }}</td>
+                  <td [class.negative]="transaction.amount < 0" [class.positive]="transaction.amount > 0">
+                    R$ {{ transaction.amount.toFixed(2) }}
+                  </td>
+                  <td>{{ transaction.description }}</td>
+                  <td>{{ transaction.relatedAccountNumber || '-' }}</td>
+                </tr>
+              }
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }
+</div>
+
