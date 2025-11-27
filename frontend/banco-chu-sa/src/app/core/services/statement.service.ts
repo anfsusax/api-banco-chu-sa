@@ -2,13 +2,14 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Statement } from '../../models/statement.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StatementService {
   private http = inject(HttpClient);
-  private apiUrl = 'https://localhost:7263/api/v1/statements';
+  private apiUrl = `${environment.apiUrl}/statements`;
 
   getStatement(accountNumber: string, startDate: Date, endDate: Date): Observable<Statement> {
     const params = new HttpParams()

@@ -51,11 +51,13 @@ Antes de executar o projeto, certifique-se de ter instalado:
 - [Node.js](https://nodejs.org/) (para o frontend Angular)
 - [Docker](https://www.docker.com/) e [Docker Compose](https://docs.docker.com/compose/install/) (recomendado para facilitar a execução)
 
-## Executando com Docker (Recomendado)
+## Executando com Docker (Recomendado) ⭐
 
 A forma mais fácil de executar o projeto é usando Docker Compose. Isso irá configurar automaticamente o SQL Server, a API e o Frontend.
 
-### Execução Rápida
+**✅ Não é necessário instalar .NET, Node.js ou SQL Server - tudo roda no Docker!**
+
+### Execução Rápida (3 Passos)
 
 1. **Clone o repositório:**
 ```bash
@@ -65,26 +67,37 @@ cd api-banco-chu-sa
 
 2. **Execute com Docker Compose:**
 ```bash
-docker-compose up -d
+docker-compose up -d --build
 ```
 
 3. **Acesse a aplicação:**
+- **Frontend:** http://localhost:4201
+- **API Swagger:** http://localhost:5000/swagger
 - **API Backend:** http://localhost:5000
-- **Swagger:** http://localhost:5000/swagger
-- **Frontend:** http://localhost:4200
 
-4. **Para parar os containers:**
+**Credenciais de Login:**
+- Username: `admin`
+- Password: `admin123`
+
+### Verificar Status
+
+```bash
+docker-compose ps
+```
+
+Todos os containers devem estar `Up` e o SQL Server deve estar `(healthy)`.
+
+### Parar a Aplicação
+
 ```bash
 docker-compose down
 ```
 
-### Detalhes sobre Docker
+### 📚 Documentação Adicional
 
-Para mais informações sobre execução com Docker, consulte o arquivo [DOCKER.md](DOCKER.md) que contém:
-- Instruções detalhadas
-- Configuração para produção
-- Solução de problemas
-- Comandos úteis
+- **[GUIA_RAPIDO.md](GUIA_RAPIDO.md)** - Guia passo a passo para iniciantes
+- **[DOCKER.md](DOCKER.md)** - Instruções detalhadas sobre Docker
+- **[ACESSO_BANCO.md](ACESSO_BANCO.md)** - Como acessar o banco de dados
 
 ## Como Executar o Projeto (Manual)
 
