@@ -2,10 +2,8 @@
 
 ## Sobre o Projeto
 
-Este projeto foi desenvolvido pela **BMPTec Tecnologia** para o **Banco Chu S.A.**, com o objetivo de criar uma API de integração para gerenciar contas bancárias e realizar transferências.
-
-Durante o desenvolvimento, nossa equipe técnica realizou entrevistas com o cliente para definir os requisitos e funcionalidades necessárias. A aplicação foi projetada para ser consumida tanto por outras aplicações via REST quanto por operadores internos através de uma interface gráfica.
-
+Este projeto foi desenvolvido pela **Alex Feitoza** para o **Banco Chu S.A.**, com o objetivo de criar uma API de integração para gerenciar contas bancárias e realizar transferências.
+ 
 ## Endpoints Principais
 
 A API oferece os seguintes endpoints:
