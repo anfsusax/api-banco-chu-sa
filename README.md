@@ -49,9 +49,44 @@ Antes de executar o projeto, certifique-se de ter instalado:
 - [.NET 6.0 SDK](https://dotnet.microsoft.com/download/dotnet/6.0)
 - [SQL Server](https://www.microsoft.com/sql-server/sql-server-downloads) ou SQL Server Express
 - [Node.js](https://nodejs.org/) (para o frontend Angular)
-- [Docker](https://www.docker.com/) (opcional, para containerização)
+- [Docker](https://www.docker.com/) e [Docker Compose](https://docs.docker.com/compose/install/) (recomendado para facilitar a execução)
 
-## Como Executar o Projeto
+## Executando com Docker (Recomendado)
+
+A forma mais fácil de executar o projeto é usando Docker Compose. Isso irá configurar automaticamente o SQL Server, a API e o Frontend.
+
+### Execução Rápida
+
+1. **Clone o repositório:**
+```bash
+git clone https://github.com/anfsusax/api-banco-chu-sa.git
+cd api-banco-chu-sa
+```
+
+2. **Execute com Docker Compose:**
+```bash
+docker-compose up -d
+```
+
+3. **Acesse a aplicação:**
+- **API Backend:** http://localhost:5000
+- **Swagger:** http://localhost:5000/swagger
+- **Frontend:** http://localhost:4200
+
+4. **Para parar os containers:**
+```bash
+docker-compose down
+```
+
+### Detalhes sobre Docker
+
+Para mais informações sobre execução com Docker, consulte o arquivo [DOCKER.md](DOCKER.md) que contém:
+- Instruções detalhadas
+- Configuração para produção
+- Solução de problemas
+- Comandos úteis
+
+## Como Executar o Projeto (Manual)
 
 ### Backend (API)
 

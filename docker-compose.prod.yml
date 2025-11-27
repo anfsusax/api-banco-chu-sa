@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  # SQL Server
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: bankchusa-sqlserver-prod
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=${SA_PASSWORD:-BankChuSA@2025!}
+      - MSSQL_PID=Express
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data_prod:/var/opt/mssql
+    networks:
+      - bankchusa-network-prod
+    restart: unless-stopped
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "${SA_PASSWORD:-BankChuSA@2025!}" -Q "SELECT 1" || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # Backend API
+  api:
+    build:
+      context: ./backend/BankChuSA
+      dockerfile: ./BanckChuSA.API/Dockerfile
+    container_name: bankchusa-api-prod
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__DefaultConnection=Data Source=sqlserver;Initial Catalog=BankChuSA;User ID=sa;Password=${SA_PASSWORD:-BankChuSA@2025!};TrustServerCertificate=True;Encrypt=False
+      - Jwt__Key=${JWT_KEY:-BankChuSA_Super_Secret_Key_For_Production_Environment_2025_Minimum_32_Characters}
+      - Jwt__Issuer=${JWT_ISSUER:-BankChuSA}
+      - Jwt__Audience=${JWT_AUDIENCE:-BankChuSA}
+    ports:
+      - "${API_PORT:-5000}:80"
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    networks:
+      - bankchusa-network-prod
+    restart: unless-stopped
+    volumes:
+      - ./backend/BankChuSA/BanckChuSA.API/logs:/app/logs
+
+  # Frontend Angular
+  frontend:
+    build:
+      context: ./frontend/banco-chu-sa
+      dockerfile: ./Dockerfile
+    container_name: bankchusa-frontend-prod
+    ports:
+      - "${FRONTEND_PORT:-4200}:80"
+    depends_on:
+      - api
+    networks:
+      - bankchusa-network-prod
+    restart: unless-stopped
+
+networks:
+  bankchusa-network-prod:
+    driver: bridge
+
+volumes:
+  sqlserver_data_prod:
+

@@ -1,0 +1,13 @@
+bin/
+obj/
+logs/
+*.user
+*.suo
+*.cache
+.vs/
+.vscode/
+*.db
+*.sqlite
+appsettings.Development.json
+appsettings.Production.json
+

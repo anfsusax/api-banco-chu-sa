@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  # SQL Server
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: bankchusa-sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=BankChuSA@2025!
+      - MSSQL_PID=Express
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    networks:
+      - bankchusa-network
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "BankChuSA@2025!" -Q "SELECT 1" || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  # Backend API
+  api:
+    build:
+      context: ./backend/BankChuSA
+      dockerfile: ./BanckChuSA.API/Dockerfile
+    container_name: bankchusa-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__DefaultConnection=Data Source=sqlserver;Initial Catalog=BankChuSA;User ID=sa;Password=BankChuSA@2025!;TrustServerCertificate=True;Encrypt=False
+      - Jwt__Key=BankChuSA_Super_Secret_Key_For_Docker_Environment_2025_Minimum_32_Characters
+      - Jwt__Issuer=BankChuSA
+      - Jwt__Audience=BankChuSA
+    ports:
+      - "5000:80"
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    networks:
+      - bankchusa-network
+    volumes:
+      - ./backend/BankChuSA/BanckChuSA.API/logs:/app/logs
+
+  # Frontend Angular
+  frontend:
+    build:
+      context: ./frontend/banco-chu-sa
+      dockerfile: ./Dockerfile
+    container_name: bankchusa-frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - api
+    networks:
+      - bankchusa-network
+
+networks:
+  bankchusa-network:
+    driver: bridge
+
+volumes:
+  sqlserver_data:
+
